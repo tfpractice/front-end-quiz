@@ -1,45 +1,68 @@
 const path = require('path');
 const webpack = require('webpack');
-
+console.log('__dirname', __dirname);
 module.exports = {
-    context: __dirname,
+    context: path.resolve(__dirname, '../app'),
+    // context: path.resolve(__dirname, '../app'),
+    // context: './',
     devtool: 'cheap-module-eval-source-map',
     entry: {
-        browse: 'entries/browse.js',
-        item: 'entries/item.js'
+        browse: './entries/browse.js',
+        item: './entries/item.js',
     },
     output: {
-        path: path.join(__dirname, '..'),
-        publicPath: '/bundle/',
-        filename: '[name].js'
+        path: path.resolve(__dirname, '../bundle'),
+        publicPath: '',
+        filename: '[name].js',
     },
-    resolve: {
-        root: path.resolve(__dirname + '/../app'),
-        extensions: ['', '.js', '.jsx', '.css', '.scss']
-    },
-    plugins: [
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.NoErrorsPlugin()
-    ],
     module: {
         loaders: [
             {
-                test: /\.jsx?$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                loader: 'babel'
+                loaders: ['babel-loader'],
             },
-            {
-                test: /\.s?css$/,
-                loaders: [
-                    'style-loader',
-                    'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-                    'postcss-loader'
-                ]
-            }
-        ]
+            { test: /\.json$/, loader: 'json-loader' },
+            // {
+            //     test: /\.css$/,
+            //     exclude: /node_modules/,
+            //
+            //     loaders: [
+            //         'style-loader',
+            //         'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+            //         'postcss-loader',
+            //     ],
+            // },
+        ],
     },
-    postcss: function () {
-        return [require('autoprefixer'), require('precss')];
+    resolve: {
+        modules: ['node_modules'],
+        // aliasFields: ['browser'],
+        // packageAlias: 'browser',
+        // root: path.resolve(__dirname, '/../app'),
+        extensions: ['.js', '.jsx', '.css', '.scss'],
     },
-    stats: { colors: true }
+    plugins: [
+        // new webpack.optimize.OccurenceOrderPlugin(),
+        // new webpack.NoErrorsPlugin(),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     names: ['vendor', 'manifest'],
+        // }),
+        // new webpack.HotModuleReplacementPlugin(),
+        // new webpack.NamedModulesPlugin(),
+        // new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV) },
+        }),
+    ],
+    node: {
+        fs: 'empty',
+        net: 'mock',
+        tls: 'mock',
+        dns: 'mock',
+    },
+    // postcss: function() {
+    //     return [require('autoprefixer'), require('precss')];
+    // },
+    // stats: { colors: true },
 };
