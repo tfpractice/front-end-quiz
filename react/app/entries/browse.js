@@ -6,16 +6,10 @@ import { MuiThemeProvider } from 'material-ui/styles';
 
 import { theme } from '../../utils';
 import { getStore } from '../../imports';
+import Home from '../components';
 
 const store = getStore(window.__PRELOADED_STATE__);
 const rootElem = document.getElementById('root');
-
-console.log('store', store);
-const Home = (props) => {
-  console.log('props', props);
-
-  return <h1> I am the home page</h1>;
-};
 
 render(
   <Provider store={store}>
