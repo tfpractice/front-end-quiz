@@ -2,7 +2,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
-import * as MUI from 'material-ui/colors';
+import { MuiThemeProvider } from 'material-ui/styles';
+
 import { theme } from '../../utils';
 import { getStore } from '../../imports';
 
