@@ -1,0 +1,11 @@
+export const SET_FAVORITES = 'SET_FAVORITES';
+export const ADD_FAVORITES = 'ADD_FAVORITES';
+export const DROP_FAVORITES = 'DROP_FAVORITES';
+
+// export const SET_FAVORITES='SET_FAVORITES'
+
+export const FAVORITE_ACTIONS = new Set([
+  SET_FAVORITES,
+  ADD_FAVORITES,
+  DROP_FAVORITES,
+]);
