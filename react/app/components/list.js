@@ -5,7 +5,11 @@ import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
 import Subheader from 'material-ui/List/ListSubheader';
 import IconButton from 'material-ui/IconButton';
 import InfoIcon from 'material-ui-icons/Info';
+import Button from 'material-ui/Button';
 import { connect } from 'react-redux';
+import Text from 'material-ui/Typography';
+
+import { Products } from '../../imports/store';
 import { ProdCard } from './products';
 
 // import tileData from './tileData';
@@ -14,27 +18,17 @@ const mapState = ({ products: { data }, favorites }) => {
   console.log('products', data, favorites);
   return { products: data };
 };
-const Connected = connect(mapState);
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    background: theme.palette.background.paper,
-  },
-  gridList: {
-    width: 500,
-    height: 450,
-  },
-});
+const Connected = connect(mapState, Products.actions);
+const styles = theme => ({});
 
 const Styled = withStyles(styles);
 
-const TitlebarGridList = ({ products, classes, ...props }) => {
-  console.log('props', props);
+const TitlebarGridList = ({ products, getProducts }) => {
+  const loadMore = () =>
+    getProducts({ start: products.length, limit: products.length + 8 });
+
   return (
-    <Grid container justify="center">
+    <Grid container justify="center" align="center">
       <Grid item xs={11}>
         Products
       </Grid>
@@ -43,6 +37,11 @@ const TitlebarGridList = ({ products, classes, ...props }) => {
           <ProdCard product={prod} />
         </Grid>
       ))}
+      <Grid item xs={6}>
+        <Button color="primary" onClick={loadMore}>
+          Load more Products
+        </Button>
+      </Grid>
     </Grid>
   );
 };

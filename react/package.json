@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/1stdibs/front-end-quiz#readme",
   "dependencies": {
+    "axios": "^0.16.2",
     "ejs": "^2.5.7",
     "express": "^4.15.4",
     "file-loader": "^0.11.2",

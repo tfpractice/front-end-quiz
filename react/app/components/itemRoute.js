@@ -11,10 +11,13 @@ import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import Heart from 'material-ui-icons/Favorite';
 import { withStyles } from 'material-ui/styles';
-import { Link } from 'react-router-dom';
 import { Favorites } from '../../../imports/store';
 
-const Connected = connect(null, Favorites.actions);
+const mapState = (state) => {
+  console.log('state', state);
+  return {};
+};
+const Connected = connect(mapState, Favorites.actions);
 const styles = theme => ({
   item: { listStyle: 'none' },
   card: { minHeight: '100%' },
@@ -27,13 +30,11 @@ const styles = theme => ({
   },
 });
 const Styled = withStyles(styles);
-const ProdCard = ({ product, classes, addFavorites, ...props }) => {
+const Item = ({ product, classes, addFavorites, ...props }) => {
   console.log('product', props);
   return (
     <Card className={classes.card}>
-      <CardHeader
-        subheader={<Link to={`/item/${product.id}`}>{product.title}</Link>}
-      />
+      <CardHeader subheader={product.title} />
       <CardContent>
         <GridListTile className={classes.item}>
           <CardMedia
@@ -69,4 +70,4 @@ const ProdCard = ({ product, classes, addFavorites, ...props }) => {
   );
 };
 
-export default Connected(Styled(ProdCard));
+export default Connected(Styled(Item));
