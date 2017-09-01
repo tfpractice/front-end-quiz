@@ -7,10 +7,13 @@ import Card, {
   CardHeader,
   CardMedia,
 } from 'material-ui/Card';
+import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import Heart from 'material-ui-icons/Favorite';
 import { withStyles } from 'material-ui/styles';
+import { Favorites } from '../../../imports/store';
 
+const Connected = connect(null, Favorites.actions);
 const styles = theme => ({
   item: { listStyle: 'none' },
   card: { minHeight: '100%' },
@@ -23,17 +26,11 @@ const styles = theme => ({
   },
 });
 const Styled = withStyles(styles);
-const ProdCard = ({ product, classes }) => {
-  console.log('product', product);
+const ProdCard = ({ product, classes, addFavorites, ...props }) => {
+  console.log('product', props);
   return (
     <Card className={classes.card}>
-      <CardHeader
-
-        // title={product.title}
-        subheader={product.title}
-
-        // subheader={`producy}`}
-      />
+      <CardHeader subheader={product.title} />
       <CardContent>
         <GridListTile className={classes.item}>
           <CardMedia
@@ -45,7 +42,7 @@ const ProdCard = ({ product, classes }) => {
           <GridListTileBar
             title={`sold: ${product.sold}`}
             actionIcon={
-              <IconButton>
+              <IconButton onClick={() => addFavorites(product.id)}>
                 <Heart color="rgba(255, 0, 255, 0.54)" />
               </IconButton>
             }
@@ -69,4 +66,4 @@ const ProdCard = ({ product, classes }) => {
   );
 };
 
-export default Styled(ProdCard);
+export default Connected(Styled(ProdCard));

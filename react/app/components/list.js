@@ -10,8 +10,8 @@ import { ProdCard } from './products';
 
 // import tileData from './tileData';
 
-const mapState = ({ products: { data }}) => {
-  console.log('products', data);
+const mapState = ({ products: { data }, favorites }) => {
+  console.log('products', data, favorites);
   return { products: data };
 };
 const Connected = connect(mapState);
