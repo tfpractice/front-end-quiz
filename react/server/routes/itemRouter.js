@@ -5,11 +5,13 @@ const itemRouter = express.Router();
 
 const getItem = function(itemId) {
   return (
-    cachedItems.find(item => item.id === itemId || item.integerId === itemId) || {}
+    cachedItems.find(item => item.id === itemId || item.integerId === itemId) ||
+    {}
   );
 };
 
 itemRouter.get('/:id', (req, res) => {
+  console.log('req.params', req.params);
   const id = req.params.id;
   const item = getItem(id);
 

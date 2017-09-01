@@ -19,7 +19,8 @@ const mapState = ({ products: { data }, favorites }) => {
   return { products: data };
 };
 const Connected = connect(mapState, Products.actions);
-const styles = theme => ({});
+
+const styles = theme => ({ card: { backgroundColor: '#f0f' }});
 
 const Styled = withStyles(styles);
 
@@ -27,6 +28,7 @@ const TitlebarGridList = ({ products, getProducts }) => {
   const loadMore = () =>
     getProducts({ start: products.length, limit: products.length + 8 });
 
+  console.log('products', products);
   return (
     <Grid container justify="center" align="center">
       <Grid item xs={11}>

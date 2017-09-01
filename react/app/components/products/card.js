@@ -27,6 +27,7 @@ const styles = theme => ({
   },
 });
 const Styled = withStyles(styles);
+
 const ProdCard = ({ product, classes, addFavorites, ...props }) => {
   console.log('product', props);
   return (
