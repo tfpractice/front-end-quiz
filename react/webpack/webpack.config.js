@@ -1,9 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 
-console.log(' path.resolve(__dirname', path.resolve(__dirname, '../'));
+const context = path.resolve(__dirname, '../');
+
 module.exports = {
-  context: path.resolve(__dirname, '../'),
+  context,
 
   devtool: 'cheap-module-eval-source-map',
   entry: {

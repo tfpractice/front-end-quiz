@@ -1,11 +1,12 @@
-import createPalette from 'material-ui/styles/palette';
-import { createMuiTheme } from 'material-ui/styles/';
 import teal from 'material-ui/colors/teal';
 import pink from 'material-ui/colors/pink';
 import grey from 'material-ui/colors/grey';
-import red from 'material-ui/colors/red';
 import { black } from 'material-ui/colors/common';
+import { createMuiTheme } from 'material-ui/styles';
 
-const palette = createPalette({ primary: grey, accent: red, type: 'dark' });
+const primary = grey;
+const accent = teal;
+const type = 'dark';
+const palette = { primary, accent, type };
 
 export const theme = createMuiTheme({ palette });

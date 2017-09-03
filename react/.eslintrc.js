@@ -243,3 +243,17 @@ module.exports = {
     ],
   },
 };
+
+// [
+//   "module-resolver",
+//   {
+//     "root": [
+//       "./"
+//     ],
+//     "alias": {
+//       "imports": "./imports",
+//       "app": "./app",
+//       "server": "./server"
+//     }
+//   }
+// ],

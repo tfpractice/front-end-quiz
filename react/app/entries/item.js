@@ -16,7 +16,7 @@ render(
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
-        <Route component={Home} />
+        <Route component={Item} />
       </BrowserRouter>
     </MuiThemeProvider>
   </Provider>,

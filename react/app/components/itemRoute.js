@@ -1,5 +1,5 @@
 import React from 'react';
-import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
+import { GridListTile, GridListTileBar } from 'material-ui/GridList';
 import Text from 'material-ui/Typography';
 import Card, {
   CardActions,
@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import Heart from 'material-ui-icons/Favorite';
 import { withStyles } from 'material-ui/styles';
-import { Favorites } from '../../../imports/store';
+import { Favorites } from '../../imports/store';
 
 const mapState = (state) => {
   console.log('state', state);

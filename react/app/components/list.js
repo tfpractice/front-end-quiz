@@ -1,18 +1,16 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
-import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
-import Subheader from 'material-ui/List/ListSubheader';
-import IconButton from 'material-ui/IconButton';
-import InfoIcon from 'material-ui-icons/Info';
+
+// import Subheader from 'material-ui/List/ListSubheader';
+// import IconButton from 'material-ui/IconButton';
+// import InfoIcon from 'material-ui-icons/Info';
 import Button from 'material-ui/Button';
 import { connect } from 'react-redux';
 import Text from 'material-ui/Typography';
 
 import { Products } from '../../imports/store';
 import { ProdCard } from './products';
-
-// import tileData from './tileData';
 
 const mapState = ({ products: { data }, favorites }) => {
   console.log('products', data, favorites);
