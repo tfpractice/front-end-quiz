@@ -1,6 +1,12 @@
 const express = require('express');
 const cachedItems = require('../data/items.json');
 
+// const getStore = require('../../imports/store');
+
+// console.log('getStore', getStore);
+
+// const getStore = require('../../imports/store');
+
 const itemRouter = express.Router();
 
 const getItem = function(itemId) {

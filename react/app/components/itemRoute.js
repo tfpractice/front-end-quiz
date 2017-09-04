@@ -1,71 +1,134 @@
 import React from 'react';
-import { GridListTile, GridListTileBar } from 'material-ui/GridList';
 import Text from 'material-ui/Typography';
+import Avatar from 'material-ui/Avatar';
+import Button from 'material-ui/Button';
+import Grid from 'material-ui/Grid';
+import IconButton from 'material-ui/IconButton';
+import Heart from 'material-ui-icons/Favorite';
+import XHeart from 'material-ui-icons/HighlightOff';
+import Chip from 'material-ui/Chip';
 import Card, {
   CardActions,
   CardContent,
   CardHeader,
   CardMedia,
 } from 'material-ui/Card';
+import { GridListTile, GridListTileBar } from 'material-ui/GridList';
 import { connect } from 'react-redux';
-import IconButton from 'material-ui/IconButton';
-import Heart from 'material-ui-icons/Favorite';
 import { withStyles } from 'material-ui/styles';
-import { Favorites } from '../../imports/store';
 
-const mapState = (state) => {
-  console.log('state', state);
-  return {};
+import { Favorites, Products } from '../../imports/store';
+
+const matchesID = id => p => p.id === id;
+const mapState = ({ products: { data }, favorites }, { match: { params }}) => {
+  const product = data.find(matchesID(params.itemID));
+
+  return { product, isFav: new Set(favorites).has(product.id) };
 };
-const Connected = connect(mapState, Favorites.actions);
+const Connected = connect(mapState, {
+  ...Products.actions,
+  ...Favorites.actions,
+});
+
 const styles = theme => ({
   item: { listStyle: 'none' },
-  card: { minHeight: '100%' },
+  card: { backgroundColor: 'rgba(66,66,66,0.7)' },
+  noPad: { paddingTop: '0.5rem', paddingBottom: '0.5rem' },
   media: {
-    minHeight: '20rem',
-    backgroundSize: 'cover',
+    minHeight: '15rem',
+    backgroundColor: '#fff',
+    backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     '&:hover': { backgroundSize: 'contain' },
   },
 });
 const Styled = withStyles(styles);
-const Item = ({ product, classes, addFavorites, ...props }) => {
+
+const Item = ({
+  product,
+  classes,
+  isFav,
+  dropFavorites,
+  addFavorites,
+  ...props
+}) => {
   console.log('product', props);
+  const FavAction = () =>
+    isFav ? dropFavorites(product.id) : addFavorites(product.id);
+
   return (
     <Card className={classes.card}>
-      <CardHeader subheader={product.title} />
-      <CardContent>
-        <GridListTile className={classes.item}>
-          <CardMedia
-            className={classes.media}
-            image={product.image}
-            alt={product.title}
-          />
+      <CardHeader
+        className={classes.noPad}
+        avatar={
+          <Avatar>
+            <IconButton onClick={FavAction}>
+              {isFav ? (
+                <XHeart color="rgba(255, 0, 255, 0.7)" />
+              ) : (
+                <Heart color="rgba(255, 0, 255, 0.7)" />
+              )}
+            </IconButton>
+          </Avatar>
+        }
+        title={product.title}
+      />
 
-          <GridListTileBar
-            title={`sold: ${product.sold}`}
-            actionIcon={
-              <IconButton onClick={() => addFavorites(product.id)}>
-                <Heart color="rgba(255, 0, 255, 0.54)" />
-              </IconButton>
-            }
-          />
-        </GridListTile>
+      <CardContent className={classes.noPad}>
+        <Grid container justify="center" align="center" spacing={0}>
+          <Grid item xs={11} sm={4}>
+            <GridListTile className={classes.item}>
+              <CardMedia
+                className={classes.media}
+                image={product.image}
+                alt={product.title}
+              />
+
+              <GridListTileBar
+                title={
+                  <CardActions>
+                    <Button>Buy</Button>
+                    <Button>Bid</Button>
+                  </CardActions>
+                }
+              />
+            </GridListTile>
+          </Grid>
+          <Grid item xs={11} sm={8}>
+            <Grid container justify="center" align="center">
+              <Grid item xs={11}>
+                <CardHeader subheader={product.description} />
+              </Grid>
+              <Grid item xs={11}>
+                <CardHeader subheader={product.attributes} />
+                {product.price && (
+                  <CardActions>
+                    {product.price.amounts.GBP && (
+                      <Chip
+                        avatar={<Avatar>{product.price.amounts.GBP[0]}</Avatar>}
+                        label={product.price.amounts.GBP.slice(1)}
+                      />
+                    )}
+                    {product.price.amounts.USD && (
+                      <Chip
+                        avatar={<Avatar>{product.price.amounts.USD[0]}</Avatar>}
+                        label={product.price.amounts.USD.slice(1)}
+                      />
+                    )}
+                    {product.price.amounts.EUR && (
+                      <Chip
+                        avatar={<Avatar>{product.price.amounts.EUR[0]}</Avatar>}
+                        label={product.price.amounts.EUR.slice(1)}
+                      />
+                    )}
+                  </CardActions>
+                )}
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </CardContent>
-      {product.price && (
-        <CardActions>
-          {product.price.amounts.GBP && (
-            <Text>GBP: {product.price.amounts.GBP}</Text>
-          )}
-          {product.price.amounts.USD && (
-            <Text>USD: {product.price.amounts.USD}</Text>
-          )}
-          {product.price.amounts.EUR && (
-            <Text>EUR: {product.price.amounts.EUR}</Text>
-          )}
-        </CardActions>
-      )}
     </Card>
   );
 };
