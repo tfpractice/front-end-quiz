@@ -1,21 +1,22 @@
 import React from 'react';
-import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
 import Text from 'material-ui/Typography';
+import Grid from 'material-ui/Grid';
+import Chip from 'material-ui/Chip';
+import Avatar from 'material-ui/Avatar';
+import IconButton from 'material-ui/IconButton';
+import Heart from 'material-ui-icons/Favorite';
+import XHeart from 'material-ui-icons/HighlightOff';
+import { GridListTile, GridListTileBar } from 'material-ui/GridList';
 import Card, {
   CardActions,
   CardContent,
   CardHeader,
   CardMedia,
 } from 'material-ui/Card';
-import Grid from 'material-ui/Grid';
-import Chip from 'material-ui/Chip';
 import { connect } from 'react-redux';
-import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
-import Heart from 'material-ui-icons/Favorite';
-import XHeart from 'material-ui-icons/HighlightOFF';
 import { withStyles } from 'material-ui/styles';
 import { Link } from 'react-router-dom';
+
 import { Favorites } from '../../../imports/store';
 
 const mapState = ({ favorites }, { product }) => ({ isFav: new Set(favorites).has(product.id) });

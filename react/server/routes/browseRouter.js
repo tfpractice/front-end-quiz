@@ -1,4 +1,5 @@
 const express = require('express');
+
 const cachedItems = require('../data/items.json');
 
 const browseRouter = express.Router();
@@ -15,9 +16,9 @@ const getItems = function(payload) {
 };
 
 browseRouter.get('', (req, res) => {
-  const response = getItems(req.query);
+  const items = getItems(req.query);
 
-  res.render('browse', response);
+  res.render('browse', { items });
 });
 
 browseRouter.get('/data', (req, res) => {
